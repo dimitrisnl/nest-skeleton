@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PlanInterval {
+  MONTH
+  YEAR
+}
+
+model BillingPlan {
+  id String @id
+
+  name            String
+  membershipLimit Int
+  interval        PlanInterval
+  intervalCount   Int
+  trialDays       Int
+}
+
+model Org {
+  id   String @id @default(uuid())
+  name String
+
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  Membership Membership[]
+}
+
+model Membership {
+  id   String         @id @default(uuid())
+  role MembershipRole
+
+  org   Org    @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  orgId String
+
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String?
+
+  // When the user joins, we will clear out the and email and set the user.
+  invitedEmail String?
+
+  @@unique([orgId, invitedEmail])
+}
+
+enum MembershipRole {
+  OWNER // everything
+  ADMIN // can't delete the app
+  USER // can't touch billing
+}
+
+model EmailVerification {
+  token      String   @id @db.Char(21)
+  userId     String   @unique
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  validUntil DateTime @default(dbgenerated("(timezone('utc'::text, now()) + '2 days'::interval)")) @db.Timestamp(6)
+}
+
+model PasswordReset {
+  token      String   @id @db.Char(21)
+  userId     String   @unique
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  validUntil DateTime @default(dbgenerated("(timezone('utc'::text, now()) + '2 days'::interval)")) @db.Timestamp(6)
+}
+
+model EmailChange {
+  token      String   @id @db.Char(21)
+  newEmail   String
+  userId     String   @unique
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  validUntil DateTime @default(dbgenerated("(timezone('utc'::text, now()) + '2 days'::interval)")) @db.Timestamp(6)
+}
+
+model User {
+  id String @id @default(uuid())
+
+  email           String    @unique
+  emailVerifiedAt DateTime?
+  acceptedTermsAt DateTime?
+  password        String
+
+  memberships Membership[]
+
+  emailVerification EmailVerification?
+  passwordReset     PasswordReset?
+  emailChange       EmailChange?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

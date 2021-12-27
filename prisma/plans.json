@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Solo Monthly",
+    "price": "10000",
+    "currency": "USD",
+    "membershipLimit": 1,
+    "interval": "MONTH",
+    "intervalCount": 1,
+    "trialDays": 7
+  },
+  {
+    "name": "Team Monthly",
+    "price": "10000",
+    "currency": "USD",
+    "membershipLimit": 5,
+    "interval": "MONTH",
+    "intervalCount": 1,
+    "trialDays": 7
+  },
+  {
+    "name": "Enterprise Monthly",
+    "price": "10000",
+    "currency": "USD",
+    "membershipLimit": 100,
+    "interval": "MONTH",
+    "intervalCount": 1,
+    "trialDays": 14
+  }
+]
