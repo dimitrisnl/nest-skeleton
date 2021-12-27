@@ -5,7 +5,7 @@ I had various ideas dead on arrival because I was so bored having to work on aut
 It also works as a playground, since adding a new package and trying something new is such a breeze.
 
 
-## Stack
+## Stack (When finished)
 
 - **Nx workspace:** Picking Nx to collocate my packages and share code. 
 - **Nest backend:** Although I'm not a fan of decorators, I appreciate that it's opinionated enough and guides me through some decisions. Also has great documentation. 
@@ -24,7 +24,16 @@ It also works as a playground, since adding a new package and trying something n
 Honestly, if you have any comments or ideas, I would love to hear them. If there are security holes, or something could be done better, drop me a comment. No need to fix anything - I appreciate the heads up all the same.
 
 Otherwise, here's my roadmap:
-https://github.com/dimitrisnl/nestjs-nextjs-nx-prisma/projects/1
+https://github.com/dimitrisnl/nest-skeleton/projects/1
+
+## Development
+
+1. Clone the repo
+2. Populate the 
+
+```sh
+
+```
 
 
 ## Prior art & inspiration
