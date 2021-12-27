@@ -29,10 +29,21 @@ https://github.com/dimitrisnl/nest-skeleton/projects/1
 ## Development
 
 1. Clone the repo
-2. Populate the 
+2. Create and populate the `.env` & `docker.env` based on the examples
 
+3. Start docker
 ```sh
+docker compose up
+```
 
+4. Run the migrations
+```sh
+npx prisma migrate dev
+```
+
+5. Run in development
+```sh
+yarn start:dev
 ```
 
 
